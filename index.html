@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Patient Monitoring Prototype</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header>
+    <h1>Hospital Patient Monitoring — Prototype</h1>
+    <p>Safety‑critical demo with simulated vitals, alerts, logs, and thresholds.</p>
+  </header>
+
+  <section id="alertBar" class="alert hidden">
+    <strong>CRITICAL ALERT:</strong> <span id="alertMsg">—</span>
+    <button id="ackBtn" class="ack">Acknowledge</button>
+    <audio id="beep" src="beep.mp3" preload="auto"></audio>
+  </section>
+
+  <main class="grid">
+    <div class="card">
+      <h2>Patient</h2>
+      <div class="patient">
+        <label>ID:</label><span id="pid">P-001</span>
+        <label>Name:</label><span id="pname">Demo Patient</span>
+        <label>Status:</label><span id="pstatus" class="status ok">OK</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Live Vitals</h2>
+      <div class="vitals">
+        <div><label>HR</label><span id="hrVal">--</span> bpm</div>
+        <div><label>BP</label><span id="bpVal">--/--</span> mmHg</div>
+        <div><label>SpO₂</label><span id="spo2Val">--</span> %</div>
+        <div><label>RR</label><span id="rrVal">--</span> /min</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Thresholds (per patient)</h2>
+      <form id="thresholdForm">
+        <div class="two">
+          <label>HR min</label><input type="number" id="hrMin" value="50"/>
+          <label>HR max</label><input type="number" id="hrMax" value="120"/>
+        </div>
+        <div class="two">
+          <label>SBP min</label><input type="number" id="sbpMin" value="90"/>
+          <label>SBP max</label><input type="number" id="sbpMax" value="160"/>
+        </div>
+        <div class="two">
+          <label>SpO₂ min</label><input type="number" id="spo2Min" value="92"/>
+          <label>RR max</label><input type="number" id="rrMax" value="24"/>
+        </div>
+        <button type="submit">Save thresholds</button>
+      </form>
+      <small>Alerts trigger when any metric breaches thresholds for ≥10s.</small>
+    </div>
+
+    <div class="card">
+      <h2>Alert Log</h2>
+      <table id="logTbl">
+        <thead>
+          <tr>
+            <th>Time</th><th>Patient</th><th>Metric</th><th>Value</th><th>Message</th><th>Ack By</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="actions">
+        <button id="simulateSms">Simulate SMS</button>
+        <button id="simulateEmail">Simulate Email</button>
+        <button id="clearLog" class="ghost">Clear Log</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Prototype for SIT217 6.3D — Not for clinical use.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
